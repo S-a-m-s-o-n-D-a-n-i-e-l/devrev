@@ -4,6 +4,8 @@ Technologies/Frameworks used:<br >
 1.React js<br >
 2.BootStrap<br >
 3.Firebase<br >
+<br >
+<br >
 Functionalities added:<br >
 1.The users are able to view the books in the library and find the book in the library.<br >
 2. The details of the book are stored in a firebase firestore database and are retrieved dynamically.<br >
@@ -12,7 +14,8 @@ Functionalities added:<br >
 5.Only the admin can add books in the library.<br >
 6.The count of the book is also displayed on the page.<br >
 7.Pagination is also implemented with a sum of 10 books per page.<br >
-
-Login for Admin:
-Email: dummy@gmail.com
-Password:123456
+<br >
+<br >
+Login for Admin:<br >
+Email: dummy@gmail.com<br >
+Password:123456<br >
