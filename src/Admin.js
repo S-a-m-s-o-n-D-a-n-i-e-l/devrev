@@ -7,9 +7,16 @@ function Admin()
 {
     function addData(newDataObj)
     {
-        db.collection("Books").doc().set(newDataObj).catch((err)=>{
+        const collectionref=db.collection("Books");
+        const newdocref=collectionref.doc();
+        const  id=newdocref.id;
+        const BookID=id;
+        newdocref.set(newDataObj,{id},{BookID}).catch((err)=>{
             alert(err);
         })
+        // db.collection("Books").doc().set(newDataObj).catch((err)=>{
+        //     alert(err);
+        // })
         alert("Data Inserted"); 
     }
     const [Author,setAuthor]=useState("");
@@ -30,6 +37,7 @@ function Admin()
         </div>
         </nav>
         <h1>Insert Data</h1>
+        <form>
         <div>
         <label className="ml-3">Author Name</label>  
         <input id="name1" className="form-control me-2 ml-3 mb-3 col-6" type="text" placeholder="Author" aria-label="Search" onChange={(e)=>setAuthor(e.target.value)} required/>
@@ -42,7 +50,6 @@ function Admin()
         <label className="ml-3">Publish Date</label>  
         <input id="name5" className="form-control me-2 ml-3 mb-3 col-6" type="date" placeholder="PublishDate" aria-label="Search" onChange={(e)=>setPublishDate(new Date(e.target.value))} required/>
         <label className="ml-3">Book ID</label>  
-        <input id="name6" className="form-control me-2 ml-3 mb-3 col-6" type="text" placeholder="BookID" aria-label="Search" onChange={(e)=>setBookID(e.target.value)} required/>
         <button className="btn btn-primary btn-rounded ml-5 mb-5" onClick={()=>{
             addData({Author,Title,Subject,PublishDate,Category,BookID})
             document.getElementById("name1").value="";
@@ -53,6 +60,7 @@ function Admin()
             document.getElementById("name6").value="";  
         }}>Insert</button>
         </div>
+        </form>
     </div>);
 }
 export default Admin;
