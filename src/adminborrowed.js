@@ -1,7 +1,6 @@
 import React,{useState} from "react";
 import {useEffect } from "react";
 import {db} from "./config";
-import BookTable from "./Booktable";
 import UserBorrowed from "./userborrwed";
 import Adminbook from "./adminbooktable";
 

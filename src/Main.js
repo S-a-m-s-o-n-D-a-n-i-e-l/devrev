@@ -121,14 +121,15 @@ function Header()
         <Link to={btnpath}>
           <button type="button" className="btn btn-primary btn-sm mt-1 nav-item">{btnname}</button>      
         </Link>
+        {
+        user && <button type="button" className="btn btn-primary btn-sm mt-1 ml-1 nav-item" onClick={()=>{
+            path("/admin")
+          }}>Add Books</button>
+        } 
         { singedstate &&
           <button type="button" className="btn btn-primary btn-sm mt-1 ml-1 nav-item" onClick={userLogout}>Logout</button>      
         }
-        {
-          user && <button type="button" className="btn btn-primary btn-sm mt-1 ml-1 nav-item" onClick={()=>{
-            path("/admin")
-          }}>Add Books</button>
-        }        
+                
     </div>
     </div>
     </nav>

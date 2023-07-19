@@ -1,30 +1,41 @@
 import React from "react";
 import { db } from "./config";
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 
 function Admin()
 {
-    function addData(newDataObj)
+    const addData=(e)=>
     {
-        const collectionref=db.collection("Books");
-        const newdocref=collectionref.doc();
-        const  id=newdocref.id;
-        const BookID=id;
-        newdocref.set(newDataObj,{id},{BookID}).catch((err)=>{
-            alert(err);
-        })
-        // db.collection("Books").doc().set(newDataObj).catch((err)=>{
-        //     alert(err);
-        // })
-        alert("Data Inserted"); 
+        e.preventDefault();
+        const collectionref = db.collection("Books");
+        const newdocref = collectionref.doc();
+        const id = newdocref.id; // Generate a unique ID for the document
+        const BookID = id; // Use the same ID for BookID
+        newdocref
+          .set({ Author, Title, Subject, PublishDate, Category, id, BookID })
+          .then(() => {
+            alert("Data Inserted");
+            document.getElementById("name1").value="";
+            document.getElementById("name2").value="";
+            document.getElementById("name3").value="";
+            document.getElementById("name4").value="";
+            document.getElementById("name5").value="";
+            document.getElementById("name6").value="";
+          })
+          .catch((err) => {
+            //alert(err);
+          });
+        //alert("Data Inserted"); 
     }
     const [Author,setAuthor]=useState("");
     const [Title,setTitle]=useState("");
     const [Subject,setSubject]=useState("");
     const [PublishDate,setPublishDate]=useState("");
     const [Category,setCategory]=useState("");
-    const [BookID,setBookID]=useState(""); 
+    //const [BookID,setBookID]=useState(""); 
     return(<div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-5">
         <div className="container-fluid">
@@ -36,8 +47,13 @@ function Admin()
         </div>
         </div>
         </nav>
+        <div className="d-flex justify-content-end mr-3 mt-2">
+          <a href="/">
+            <FontAwesomeIcon icon={faHome} />Home
+          </a>
+        </div>
         <h1>Insert Data</h1>
-        <form>
+        <form onSubmit={addData}>
         <div>
         <label className="ml-3">Author Name</label>  
         <input id="name1" className="form-control me-2 ml-3 mb-3 col-6" type="text" placeholder="Author" aria-label="Search" onChange={(e)=>setAuthor(e.target.value)} required/>
@@ -49,16 +65,7 @@ function Admin()
         <input  id="name4" className="form-control me-2 ml-3 mb-3 col-6" type="text" placeholder="Category" aria-label="Search" onChange={(e)=>setCategory(e.target.value)} required/>
         <label className="ml-3">Publish Date</label>  
         <input id="name5" className="form-control me-2 ml-3 mb-3 col-6" type="date" placeholder="PublishDate" aria-label="Search" onChange={(e)=>setPublishDate(new Date(e.target.value))} required/>
-        <label className="ml-3">Book ID</label>  
-        <button className="btn btn-primary btn-rounded ml-5 mb-5" onClick={()=>{
-            addData({Author,Title,Subject,PublishDate,Category,BookID})
-            document.getElementById("name1").value="";
-            document.getElementById("name2").value="";
-            document.getElementById("name3").value="";
-            document.getElementById("name4").value="";
-            document.getElementById("name5").value="";
-            document.getElementById("name6").value="";  
-        }}>Insert</button>
+        <button className="btn btn-primary btn-rounded ml-5 mb-5" >Insert</button>
         </div>
         </form>
     </div>);

@@ -7,7 +7,7 @@ function Adminbook({ data })
     }
     return(<table className="table table-hover table-light">
     <thead className="table-info">
-      <tr>
+      <tr>  
       <th>Book ID</th>
         <th>Title</th>
         <th>Author</th>

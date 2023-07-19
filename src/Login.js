@@ -35,10 +35,8 @@ function Login()
             alert("Invalid Credentials");
         }
         if(email===details[0].data.Email && pass===details[0].data.Password){
-            //details.circularRef = details;
             localStorage.setItem("userdetails",JSON.stringify(details));
             path(`/`);
-            //<Header></Header> 
         }else{  
             alert("Invalid Credentials  ");
         }

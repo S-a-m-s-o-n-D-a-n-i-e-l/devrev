@@ -15,7 +15,7 @@ function Table(prop)
   const[dataa,setDataa]=useState(JSON.parse(localStorage.getItem('userdetails')));
   const navigate=useNavigate();
   const [currentPage,setCurrentPage]=useState(1);
-  const recordperpage=10;
+  const recordperpage=10
   const lastindex=currentPage * recordperpage;
   const [btnName,SetBtnName]=useState();
   const firstIndex=lastindex - recordperpage;

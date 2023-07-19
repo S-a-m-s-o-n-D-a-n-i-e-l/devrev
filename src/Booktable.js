@@ -8,35 +8,46 @@ function BookTable({ data }) {
   }
 
   const storedArray = JSON.parse(localStorage.getItem("userdetails"));
-
-  const deleteBookFromFirestore = async (userId, bookId, index) => {
-    // console.log("Deleting book:", bookId);
+  console.log(data);
+  const deleteBookFromFirestore = async (userId, bookId) => {
     try {
       const userRef = db.collection("Users").doc(userId);
       const userSnapshot = await userRef.get();
-
+  
       if (userSnapshot.exists) {
         const user = userSnapshot.data();
-        console.log(user);
         const borrowedBooks = user.BorrowedBooks || {};
+  
+        // Find the book with matching bookId
+        const bookKey = Object.keys(borrowedBooks).find(
+          (key) => borrowedBooks[key].data.id === bookId
+        );
 
-        const updatedBorrowedBooks = { ...borrowedBooks };
-        delete updatedBorrowedBooks[index];
-
-        await userRef.update({
-          BorrowedBooks: updatedBorrowedBooks,
-          BorrowedCount: user.BorrowedCount - 1,
-        });
-        alert("Book returned successfully,Please refresh the page");
-        returnBook(index);
+        console.log(bookKey);
+  
+        if (bookKey) {
+          // Remove the book from borrowedBooks
+          delete borrowedBooks[bookKey];
+  
+          // Update the Firestore document
+          await userRef.update({
+            BorrowedBooks: borrowedBooks,
+            BorrowedCount: user.BorrowedCount - 1,
+          });
+  
+          alert("Book returned successfully.");
+          returnBook(bookKey);
+        } else {
+          alert("Book not found.");
+        }
       } else {
-        // console.log("User document not found.");
+        alert("User document not found.");
       }
     } catch (error) {
-      // console.log("Error deleting book:", error);
+      console.log("Error deleting book:", error);
     }
   };
-
+  
   const returnBook = (index) => {
     const storedArray = JSON.parse(localStorage.getItem("userdetails"));
 
@@ -53,6 +64,7 @@ function BookTable({ data }) {
 
       localStorage.setItem("userdetails", JSON.stringify(storedArray));
     }
+    window.location.reload();
   };
 
   return (
